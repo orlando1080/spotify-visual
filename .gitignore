@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# pycharm settings.
+.idea
+
+spotify cache.
+.cache-imn69hydyq5jbt4laxi523rko
