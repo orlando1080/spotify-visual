@@ -9,13 +9,14 @@ secret = 'b216f07725ca42c6b7ac6b845f55e684'
 
 scope = 'user-library-read'
 redirect_url = 'http://localhost:8000/callback/'
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cid, client_secret=secret, scope=scope, redirect_uri=redirect_url))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cid, client_secret=secret, scope=scope,
+                                               redirect_uri=redirect_url))
 
 tracks = []
 # print(sp.current_user_saved_tracks()['items'])
 for i in range(0, 5000, 50):
     all_tracks = sp.current_user_saved_tracks(limit=50, offset=i)
-    for i, t in enumerate(all_tracks['items']):
+    for index, t in enumerate(all_tracks['items']):
         tracks.append(t)
 print(tracks)
 
