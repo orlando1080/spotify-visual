@@ -131,5 +131,8 @@ dmypy.json
 # pycharm settings.
 .idea
 
-spotify cache.
+# spotify cache.
 .cache-imn69hydyq5jbt4laxi523rko
+
+# config file
+*.cfg

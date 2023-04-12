@@ -1,11 +1,15 @@
 from collections import defaultdict
+import configparser
 
 import matplotlib.pyplot as plt
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
-cid = 'e7bebd4ec3744b08afc1e80f13008e6f'
-secret = 'b216f07725ca42c6b7ac6b845f55e684'
+config = configparser.ConfigParser()
+config.read('config.cfg')
+
+cid = config.get('SPOTIFY', 'CLIENT_ID')
+secret = config.get('SPOTIFY', 'CLIENT_SECRET')
 scope = 'user-library-read'
 redirect_url = 'http://localhost:8000/callback/'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cid, client_secret=secret, scope=scope,
