@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 
+
 config = configparser.ConfigParser()
 config.read('config.cfg')
 
@@ -14,6 +15,15 @@ scope = 'user-library-read'
 redirect_url = 'http://localhost:8000/callback/'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cid, client_secret=secret, scope=scope,
                                                redirect_uri=redirect_url))
+
+# sp = SpotifyOAuth(client_id=cid, client_secret=secret, scope=scope, redirect_uri=redirect_url, show_dialog=True)
+# auth_url = sp.get_authorize_url()
+# print(f'{auth_url}')
+# url = input('paste: ')
+# code = sp.parse_auth_response_url(url)
+#
+# token = sp.get_access_token(code, as_dict=False, check_cache=False)
+# user = spotipy.Spotify(auth=token)
 
 tracks = []
 for i in range(0, 5000, 50):
@@ -29,15 +39,21 @@ for track in tracks:
         artist_name = artist['name']
         artist_counts[artist_name] += 1
 
+# artist_counts['Others'] = 0
+# for count in artist_counts.values():
+#     if count == 1:
+#         artist_counts['Others'] += count
+
+
 # Print the number of tracks by each artist
-# for artist, count in artist_counts.items():
-#     print(f"{artist}: {count}")
-# print(len(tracks))
+for artist, count in artist_counts.items():
+    print(f"{artist}: {count}")
 artists_names = [name for name in artist_counts]
 tracks_count = [num for num in artist_counts.values()]
-
 fig, ax = plt.subplots()
-ax.barh(artists_names[: 6], tracks_count[: 6])
+ax.barh([name for num, name in sorted(list(zip(tracks_count, artists_names)))[::-1]][:11], [num for num, name in sorted(list(zip(tracks_count, artists_names)))[::-1]][:11])
+
 
 plt.show()
-print(artist_counts.get('Eminem'))
+
+
