@@ -39,6 +39,8 @@ for track in tracks:
         artist_name = artist['name']
         artist_counts[artist_name] += 1
 
+sorted_artists = dict(sorted(artist_counts.items(), key=lambda x: x[1])[::-1])
+
 # artist_counts['Others'] = 0
 # for count in artist_counts.values():
 #     if count == 1:
@@ -46,14 +48,15 @@ for track in tracks:
 
 
 # Print the number of tracks by each artist
-for artist, count in artist_counts.items():
+for artist, count in sorted_artists.items():
     print(f"{artist}: {count}")
-artists_names = [name for name in artist_counts]
-tracks_count = [num for num in artist_counts.values()]
+artists_names = [name for name in sorted_artists]
+tracks_count = [num for num in sorted_artists.values()]
 fig, ax = plt.subplots()
-ax.barh([name for num, name in sorted(list(zip(tracks_count, artists_names)))[::-1]][:11], [num for num, name in sorted(list(zip(tracks_count, artists_names)))[::-1]][:11])
-
-
+ax.barh(artists_names[:10], tracks_count[:10])
+ax.set_xlabel('Artists')
+ax.set_ylabel('Number Of Songs')
+ax.set_title('Top 10 Artists by Saved Tracks')
 plt.show()
 
 
