@@ -136,3 +136,6 @@ dmypy.json
 
 # config file
 *.cfg
+
+# html files
+*.html
