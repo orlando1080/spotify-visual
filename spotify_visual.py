@@ -17,8 +17,6 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=cid, client_secret=secr
 # access_token = sp.get_access_token(check_cache=False, as_dict=False)
 # sp = spotipy.Spotify(auth=access_token)
 
-cap = 20
-name = f'<a href="{sp.current_user()["external_urls"]["spotify"]}">{sp.current_user()["display_name"]}'
 tracks = []
 for i in range(0, 5000, 50):
     all_tracks = sp.current_user_saved_tracks(limit=50, offset=i)
@@ -36,6 +34,8 @@ for track in tracks:
         else:
             artist_counts[artist_name] = [artist['external_urls']['spotify'], 1]
 
+name = f'<a href="{sp.current_user()["external_urls"]["spotify"]}">{sp.current_user()["display_name"]}'
+cap = 20
 sorted_artists = dict(sorted(artist_counts.items(), key=lambda x: x[1][1])[::-1])
 artists_names = [f'<a href="{sorted_artists[name][0]}">{name}</a>' for name in sorted_artists][:cap]
 tracks_count = [num[1] for num in sorted_artists.values()][:cap]
